@@ -8,7 +8,7 @@ window.addEventListener("load", function() {
  document.getElementById('play').addEventListener("click", function() {
 	 console.log("Play Video");
 	 video.play();
-	 document.getElementById('volume').innerHTML = "100";
+	 document.getElementById('volume').innerHTML = "100%";
  });
 
  document.getElementById('pause').addEventListener("click", function() {
@@ -29,12 +29,12 @@ document.getElementById('faster').addEventListener("click", function() {
 document.getElementById('mute').addEventListener("click", function() {
 	if (video.muted === false) {
 		video.muted = true;
-		document.getElementById('volume').innerHTML = "0";
+		document.getElementById('volume').innerHTML = "0%";
 		document.getElementById('mute').innerHTML = "Unmute";
 	}
 	else {
 		video.muted = false;
-		document.getElementById('volume').innerHTML = "100";
+		document.getElementById('volume').innerHTML = "100%";
 		document.getElementById('mute').innerHTML = "Mute";
 	}
 });
@@ -42,13 +42,17 @@ document.getElementById('mute').addEventListener("click", function() {
 document.getElementById('skip').addEventListener("click", function() {
 	console.log("Original location " + video.currentTime);
 	video.currentTime = video.currentTime + 15;
+	video.addEventListener("ended", function() {
+		video.currentTime = 0;
+		video.play();
+	});
 	console.log("New location " +video.currentTime);
 	
 });
 
 document.getElementById('slider').addEventListener("change", function() {
 	video.volume = this.value / 100;
-	document.getElementById('volume').innerHTML = video.volume * 100;
+	document.getElementById('volume').innerHTML = video.volume * 100 + "%";
 });
 
 document.getElementById('vintage').addEventListener("click", function() {
